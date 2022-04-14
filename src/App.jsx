@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TodoPage from './Components/TodoPage';
-// import './Styles/globalCss.scss';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import context from './Context';
 function App() {
+    const [todos, setTodos] = useState([]);
     return (
         <>
-            <TodoPage />
+            <context.Provider
+                value={{
+                    todos,
+                    setTodos
+                }}
+            >
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<TodoPage />} />
+                    </Routes>
+                </BrowserRouter>
+            </context.Provider>
         </>
     );
 }

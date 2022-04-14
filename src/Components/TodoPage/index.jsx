@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, Typography } from '@mui/material';
 import CustomInput from '../CustomInput';
 import CustomButton from '../CustomButton';
 import TodoTable from '../TodoTable';
 import { getTodos } from '../../Services/todos-services';
+import context from '../../Context';
 export default function TodoPage() {
+    const { todos, setTodos } = useContext(context);
     const [todo, setTodo] = useState('');
-    const [todos, setTodos] = useState([]);
+    // const [todos, setTodos] = useState([]);
     const [isDisabled, setIsDisabled] = useState(true);
-    useEffect(() => {
-        (async () => {
-            const res = await getTodos();
-            setTodos(res.slice(0, 10));
-            console.log(res);
-        })();
-    }, []);
 
     const handleTodoChange = (event) => {
         setTodo(event.target.value);
@@ -85,7 +80,7 @@ export default function TodoPage() {
                     </Box>
                 </Box>
                 <Box sx={{ mt: '40px' }}>
-                    <TodoTable todos={todos}></TodoTable>
+                    <TodoTable />
                 </Box>
             </Box>
         </Box>
